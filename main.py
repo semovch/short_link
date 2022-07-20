@@ -2,21 +2,21 @@ from dotenv import load_dotenv
 
 import argparse
 
-import os 
+import os
 
 import requests
 
 
 def shorten_link(url, token):
     headers = {
-      'Authorization': f'Bearer {token}' 
+      'Authorization': f'Bearer {token}'
     }
     long_url = {"long_url": url}
     response = requests.post(
-      'https://api-ssl.bitly.com/v4/shorten',
-      headers=headers, 
-      json=long_url
-    )
+        'https://api-ssl.bitly.com/v4/shorten',
+        headers=headers,
+        json=long_url
+        )
     response.raise_for_status()
     short_link = response.json()
     return short_link['id']
@@ -32,10 +32,10 @@ def count_clicks(url, token):
 
     )
     response = requests.get(
-      f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
-      headers=headers,
-      params=params
-    )
+        f'https://api-ssl.bitly.com/v4/bitlinks/{url}/clicks/summary',
+        headers=headers,
+        params=params
+        )
     clicks_counter = response.json()
     response.raise_for_status()
     return clicks_counter['total_clicks']
@@ -46,9 +46,9 @@ def is_bitlink(url, token):
         'Authorization': f'Bearer {token}',
     }
     response = requests.get(
-      f'https://api-ssl.bitly.com/v4/bitlinks/{url}',
-      headers=headers
-    )
+        f'https://api-ssl.bitly.com/v4/bitlinks/{url}',
+        headers=headers
+        )
     return response.ok
 
 
@@ -56,9 +56,9 @@ def main():
     load_dotenv()
     token = os.environ['BITLY_TOKEN']
     parser = argparse.ArgumentParser(
-    description = 'сокращение ссылок'
-    )
-    parser.add_argument('url', help = 'введите ссылку')
+        description='сокращение ссылок'
+        )
+    parser.add_argument('url', help='введите ссылку')
     args = parser.parse_args()
     url = args.url
     if is_bitlink(url, token):

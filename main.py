@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-load_dotenv()
 
 import argparse
 
@@ -54,6 +53,7 @@ def is_bitlink(url, token):
 
 
 def main():
+    load_dotenv()
     token = os.environ['BITLY_TOKEN']
     parser = argparse.ArgumentParser(
     description = 'сокращение ссылок'

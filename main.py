@@ -62,7 +62,7 @@ def main():
     url = args.url
     if args.url.find("bit.ly") != -1:
         url = urlparse(args.url)
-        url = url[1] + url[2]
+        url = url.netloc + url.path
     if is_bitlink(url, token):
         try:
             print('Clicks_count: ', count_clicks(url, token))

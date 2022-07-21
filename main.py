@@ -62,11 +62,11 @@ def main():
         )
     parser.add_argument('url', help='введите ссылку')
     args = parser.parse_args()
-    url = args.url
-    if url.find("bit.ly") == -1:
-        pass
-    if url.find("bit.ly") != -1:
-        url = urlparse(url).netloc + urlparse(url).path
+    if args.url.find("bit.ly") == -1:
+        url = args.url
+    if args.url.find("bit.ly") != -1:
+        url = urlparse(args.url)
+        url = url[1] + url[2]
     if is_bitlink(url, token):
         try:
             print('Clicks_count: ', count_clicks(url, token))

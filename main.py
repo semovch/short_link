@@ -62,8 +62,7 @@ def main():
     )
     parser.add_argument('url', help='введите ссылку')
     args = parser.parse_args()
-    if args.url.find("bit.ly") == -1:
-        url = args.url
+    url = args.url
     if args.url.find("bit.ly") != -1:
         url = urlparse(args.url)
         url = url[1] + url[2]

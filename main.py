@@ -22,6 +22,8 @@ def shorten_link(url, token):
 
 
 def count_clicks(url, token):
+    url = urlparse(url)
+    url = f'{url.netloc}{url.path}'
     headers = {
         'Authorization': f'Bearer {token}',
     }
@@ -41,6 +43,8 @@ def count_clicks(url, token):
 
 
 def is_bitlink(url, token):
+    url = urlparse(url)
+    url = f'{url.netloc}{url.path}'
     headers = {
         'Authorization': f'Bearer {token}',
     }
@@ -60,9 +64,6 @@ def main():
     parser.add_argument('url', help='введите ссылку')
     args = parser.parse_args()
     url = args.url
-    if args.url.find("bit.ly") != -1:
-        url = urlparse(args.url)
-        url = url.netloc + url.path
     if is_bitlink(url, token):
         try:
             print('Clicks_count: ', count_clicks(url, token))
